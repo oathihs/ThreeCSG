@@ -1,0 +1,23 @@
+{
+  "name": "ThreeCSG",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stannnn/ThreeCSG.git"
+  },
+  "author": "Stan Guo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stannnn/ThreeCSG/issues"
+  },
+  "homepage": "https://github.com/stannnn/ThreeCSG",
+  "devDependencies": {
+    "rollup": "^0.26.3"
+  }
+}

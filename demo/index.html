@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r75/three.js"></script>
+    <script src="https://stemkoski.github.io/Three.js/js/Detector.js"></script>
+    <script src="https://stemkoski.github.io/Three.js/js/Stats.js"></script>
+    <script src="https://stemkoski.github.io/Three.js/js/OrbitControls.js"></script>
+    <script src="https://stemkoski.github.io/Three.js/js/THREEx.KeyboardState.js"></script>
+    <script src="https://stemkoski.github.io/Three.js/js/THREEx.FullScreen.js"></script>
+    <script src="https://stemkoski.github.io/Three.js/js/THREEx.WindowResize.js"></script>
+    <script src="../build/THREE.CSG.js"></script>
+  </head>
+  <body>
+  <p> hello wolrd!</p>
+  <div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
+  </body>
+
+  <script>
+    /*
+      Three.js "tutorials by example"
+      Author: Lee Stemkoski
+      Date: July 2013 (three.js v59dev)
+     */
+
+    // MAIN
+
+    // standard global variables
+    var container, scene, camera, renderer, controls, stats;
+    var keyboard = new THREEx.KeyboardState();
+    var clock = new THREE.Clock();
+    // custom global variables
+    var cube;
+
+    init();
+    animate();
+
+    // FUNCTIONS    
+    function init() 
+    {
+      // SCENE
+      scene = new THREE.Scene();
+      // CAMERA
+      var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
+      var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
+      camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
+      scene.add(camera);
+      camera.position.set(0,150,100);
+      camera.lookAt(scene.position);  
+      // RENDERER
+      if ( Detector.webgl )
+        renderer = new THREE.WebGLRenderer( {antialias:true} );
+      else
+        renderer = new THREE.CanvasRenderer(); 
+      renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+      container = document.getElementById( 'ThreeJS' );
+      container.appendChild( renderer.domElement );
+      // EVENTS
+      THREEx.WindowResize(renderer, camera);
+      THREEx.FullScreen.bindKey({ charCode : 'm'.charCodeAt(0) });
+      // CONTROLS
+      controls = new THREE.OrbitControls( camera, renderer.domElement );
+      // STATS
+      stats = new Stats();
+      stats.domElement.style.position = 'absolute';
+      stats.domElement.style.bottom = '0px';
+      stats.domElement.style.zIndex = 100;
+      container.appendChild( stats.domElement );
+      // LIGHT
+      var light = new THREE.DirectionalLight(0xffffff, 1);
+      light.position.set(0,150,100);
+      scene.add(light);
+        
+        /**
+      // FLOOR
+      var floorTexture = new THREE.ImageUtils.loadTexture( 'images/checkerboard.jpg' );
+      floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
+      floorTexture.repeat.set( 10, 10 );
+      var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+      var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
+      var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+      floor.position.y = -0.5;
+      floor.rotation.x = Math.PI / 2;
+      scene.add(floor);
+      // SKYBOX/FOG
+      var skyBoxGeometry = new THREE.CubeGeometry( 10000, 10000, 10000 );
+      var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x9999ff, side: THREE.BackSide } );
+      var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
+      scene.add(skyBox);
+        **/
+      
+      ////////////
+      // CUSTOM //
+      ////////////
+
+    var material1 = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+    var material2 = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+      var cubeGeometry = new THREE.CubeGeometry( 60, 120, 50 );
+      var cube1 = new THREE.Mesh( cubeGeometry, material1 );
+      cube1.position.set(60, 60, 0);
+      scene.add( cube1 );   
+      
+      var cube2 = new THREE.Mesh( new THREE.CubeGeometry( 80, 80, 80 ), material2 );
+      cube2.position.set(0, 0, 0);
+      scene.add( cube2 );
+
+      var c1 = THREE.CSG.fromMesh(cube1)
+      var c2 = THREE.CSG.fromMesh(cube2)
+      var result = c1.union(c2)
+      var g = THREE.CSG.toGeometry(result)
+      var mesh = new THREE.Mesh(g, material1)
+      mesh.position .set(100, 100, 100)
+      scene.add(mesh)
+    }
+
+    function animate() 
+    {
+      requestAnimationFrame( animate );
+      render();   
+      update();
+    }
+
+    function update()
+    {
+      if ( keyboard.pressed("z") ) 
+      { 
+        // do something
+      }
+      
+      controls.update();
+      stats.update();
+    }
+
+    function render() 
+    {
+      renderer.render( scene, camera );
+    }
+
+  </script>
+</html>
