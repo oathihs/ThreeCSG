@@ -25,6 +25,9 @@ export default (function () {
   */
  THREE.CSG.fromGeometry = function (geometry) {
    var polygons = []
+   if (geometry instanceof THREE.BufferGeometry) {
+    geometry = new THREE.Geometry().fromBufferGeometry(geometry)
+   }
    for (var i = 0; i < geometry.faces.length; i++) {
      var face = geometry.faces[i]
      var pos
@@ -80,7 +83,12 @@ export default (function () {
  THREE.CSG.fromMesh = function (mesh) {
    mesh.updateMatrix()
    this.matrix = new CSG.Matrix4x4(mesh.matrix.clone().elements)
-   var _geometry = mesh.geometry
+   var _geometry
+   if (mesh.geometry instanceof THREE.BufferGeometry) {
+    _geometry = new THREE.Geometry().fromBufferGeometry(mesh.geometry)
+   } else {
+    _geometry = mesh.geometry
+   }
    var csg = THREE.CSG.fromGeometry(_geometry)
    return csg.transform(this.matrix)
  }
