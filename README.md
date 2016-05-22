@@ -7,7 +7,10 @@ Remember to include THREE.js before including this plugin.
 <script src="build/THREE.CSG.js"></script>
 ```
 
-## Convert between THREE object and CSG object
+
+## Usage
+
+### Convert between THREE object and CSG object
 ``` bash
 # convert THREE.Geometry to CSG format
 var csg = THREE.CSG.fromGeometry(geometry)
@@ -19,7 +22,7 @@ var csg = THREE.CSG.fromMesh(mesh)
 var geometry = THREE.CSG.toGeometry(csg)
 ```
 
-## Boolean Operations
+### Boolean Operations
 ``` bash
 # Union
 var result = A.union(B)
