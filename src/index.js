@@ -47,7 +47,7 @@ export default (function () {
        vertex = geometry.vertices[face.c]
        pos = new CSG.Vector3D(vertex.x, vertex.y, vertex.z)
        vertices.push(new CSG.Vertex(pos))
-     } else if (typeof THREE.Face4) {
+     } else if (face instanceof THREE.Face4) {
        vertex = geometry.vertices[face.a]
        pos = new CSG.Vector3D(vertex.x, vertex.y, vertex.z)
        vertices.push(new CSG.Vertex(pos))
@@ -64,7 +64,7 @@ export default (function () {
        pos = new CSG.Vector3D(vertex.x, vertex.y, vertex.z)
        vertices.push(new CSG.Vertex(pos))
      } else {
-      // throw 'Invalid face type at index ' + i
+      throw 'Invalid face type at index ' + i
      }
 
      polygon = new CSG.Polygon(vertices)
@@ -172,25 +172,7 @@ export default (function () {
 
  // convert CSG object to three.js mesh.
  THREE.CSG.toMesh = function (csg, material) {
-   var face
-   var three_geometry = new THREE.Geometry()
-   var polygons = csg.toPolygons()
-
-   polygons.forEach(function (polygon) {
-     var vertices = polygon.vertices.map(function (vertex) {
-       return getGeometryVertex(three_geometry, vertex.pos)
-     }, this)
-
-     if (vertices[0] === vertices[vertices.length - 1]) {
-       vertices.pop()
-     }
-
-     for (let i = 2; i < vertices.length; i++) {
-       face = new THREE.Face3(vertices[0], vertices[i - 1], vertices[i], new THREE.Vector3().copy(polygon.plane.normal))
-       three_geometry.faces.push(face)
-     }
-   }, this)
-
+   var three_geometry = THREE.CSG.toGeometry(csg)
    var three_mesh = new THREE.Mesh(three_geometry, material)
    return three_mesh
  }
