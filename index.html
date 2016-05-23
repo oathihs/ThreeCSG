@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r75/three.js"></script>
+    <script src="https://stemkoski.github.io/Three.js/js/Detector.js"></script>
+    <script src="https://stemkoski.github.io/Three.js/js/Stats.js"></script>
+    <script src="https://stemkoski.github.io/Three.js/js/OrbitControls.js"></script>
+    <script src="https://stemkoski.github.io/Three.js/js/THREEx.FullScreen.js"></script>
+    <script src="https://stemkoski.github.io/Three.js/js/THREEx.WindowResize.js"></script>
+    <script src="https://rawgit.com/mrdoob/three.js/master/examples/js/loaders/STLLoader.js"></script>
+    <script src="./THREE.CSG.js"></script>
+  </head>
+
+  <body>
+    <div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
+  </body>
+  <script src="./scene.config.js"></script>
+  <script>
+
+    var material = new THREE.MeshLambertMaterial( { color: 0x9a9b9c, shading: THREE.SmoothShading } )
+    var cubeMesh = new THREE.Mesh(new THREE.CubeGeometry(300, 300, 300), material)
+    cubeMesh.position.set(0, 0, 150)
+    cubeCSG = THREE.CSG.fromMesh(cubeMesh)
+    // scene.add(cubeMesh)
+
+    var sphereMesh1 = new THREE.Mesh(new THREE.SphereGeometry(200, 30, 30), material)
+    sphereMesh1.position.set(0, 0, 150)
+    sphereCSG1 = THREE.CSG.fromMesh(sphereMesh1)
+    // scene.add(sphereMesh1)
+
+    var sphereMesh2 = new THREE.Mesh(new THREE.SphereGeometry(100, 50, 50), material)
+    sphereMesh2.position.set(0, 0, 150)
+    sphereCSG2 = THREE.CSG.fromMesh(sphereMesh2)
+    // scene.add(sphereMesh2)
+
+    var result = cubeCSG.subtract(sphereCSG1).union(sphereCSG2)
+    var mesh = THREE.CSG.toMesh(result, material)
+    scene.add(mesh)
+
+  </script>
+</html>
