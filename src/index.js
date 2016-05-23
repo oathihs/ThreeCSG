@@ -170,6 +170,31 @@ export default (function () {
    return three_geometry
  }
 
+ // convert CSG object to three.js mesh.
+ THREE.CSG.toMesh = function (csg, material) {
+   var face
+   var three_geometry = new THREE.Geometry()
+   var polygons = csg.toPolygons()
+
+   polygons.forEach(function (polygon) {
+     var vertices = polygon.vertices.map(function (vertex) {
+       return getGeometryVertex(three_geometry, vertex.pos)
+     }, this)
+
+     if (vertices[0] === vertices[vertices.length - 1]) {
+       vertices.pop()
+     }
+
+     for (let i = 2; i < vertices.length; i++) {
+       face = new THREE.Face3(vertices[0], vertices[i - 1], vertices[i], new THREE.Vector3().copy(polygon.plane.normal))
+       three_geometry.faces.push(face)
+     }
+   }, this)
+
+   var three_mesh = new THREE.Mesh(three_geometry, material)
+   return three_mesh
+ }
+
  function getGeometryVertex (geometry, vertex_position) {
    geometry.vertices.push(new THREE.Vector3(vertex_position.x, vertex_position.y, vertex_position.z))
    return geometry.vertices.length - 1
