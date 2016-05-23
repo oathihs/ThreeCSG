@@ -37,10 +37,10 @@ var result = A.subtract(B)
 var result = A.intersect(B)
 ```
 
-### Live Demo
+## Live Demo
 [live Demo](http://stannnn.github.io/ThreeCSG/)
 
-### Development
+## Development
 ``` bash
 # install dependencies
 npm install
