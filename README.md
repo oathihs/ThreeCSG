@@ -4,7 +4,7 @@
 ## Include in Your HTML
 Remember to include THREE.js before including this plugin.
 ``` bash
-<script src="build/THREE.CSG.js"></script>
+<script src="dist/THREE.CSG.js"></script>
 ```
 
 
