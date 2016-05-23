@@ -20,6 +20,9 @@ var csg = THREE.CSG.fromMesh(mesh)
 
 # convert to THREE.Geometry
 var geometry = THREE.CSG.toGeometry(csg)
+
+# convert to THREE.Mesh
+var mesh = THREE.CSG.toMesh(csg, material)
 ```
 
 ### Boolean Operations
@@ -32,4 +35,16 @@ var result = A.subtract(B)
 
 # Intersect
 var result = A.intersect(B)
+```
+
+### Live Demo
+[live Demo](http://stannnn.github.io/ThreeCSG/)
+
+### Development
+``` bash
+# install dependencies
+npm install
+
+# build for production
+npm run build
 ```
