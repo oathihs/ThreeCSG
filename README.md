@@ -36,6 +36,7 @@ var result = A.subtract(B)
 # Intersect
 var result = A.intersect(B)
 ```
+NOTE: Both A and B should be in CSG format for boolean operations.
 
 ## Live Demo
 [live Demo](http://stannnn.github.io/ThreeCSG/)
