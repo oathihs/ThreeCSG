@@ -6727,8 +6727,10 @@ var ThreeCSG = (function () {
     // check dependency
     if (window.THREE) {
       THREE = window.THREE
+    } else if (global.THREE) {
+      THREE = global.THREE
     } else {
-      window.throw("THREE is undefined, please include THREE.js")
+      global.throw("THREE is undefined, please include THREE.js")
     }
 
     THREE.CSG = CSG
