@@ -39,7 +39,7 @@ var result = A.intersect(B)
 NOTE: Both A and B should be in CSG format for boolean operations.
 
 ## Live Demo
-[live Demo](http://stannnn.github.io/ThreeCSG/)
+[live Demo](http://oathihs.github.io/ThreeCSG/)
 
 ## Development
 ``` bash
