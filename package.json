@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/stannnn/ThreeCSG.git"
+    "url": "https://github.com/oathihs/ThreeCSG.git"
   },
   "author": "Stan Guo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/stannnn/ThreeCSG/issues"
+    "url": "https://github.com/oathihs/ThreeCSG/issues"
   },
-  "homepage": "https://github.com/stannnn/ThreeCSG",
+  "homepage": "https://github.com/oathihs/ThreeCSG",
   "devDependencies": {
     "rollup": "^0.26.3"
   }
